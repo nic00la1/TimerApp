@@ -22,6 +22,9 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             backgroundColor
+            ProgressBarView(progress: $timerViewModel.seconds, goal: $timerViewModel.goalTime)
+            centerTitle
+            bottomButtons
         }
     }
     
@@ -30,7 +33,39 @@ struct ContentView: View {
         Color(red: 63/255, green: 68/255, blue: 3/55)
             .ignoresSafeArea()
     }
-    
+    private var centerTitle: some View {
+        VStack {
+            Text(timerViewModel.progress >= 1 ? "Done" : timerViewModel.displayTime )
+                .font(.system(size: 50, weight: .bold))
+                .foregroundStyle(.white)
+            Text("\(timerViewModel.goalTime.asString(style: .short))")
+                .foregroundStyle(.white)
+                .opacity(0.6)
+        }
+    }
+    private var bottomButtons: some View {
+        VStack {
+            Text("Timer App")
+                .font(.title)
+                .foregroundStyle(Color(red: 180/255, green: 187/255, blue: 62/255))
+            Spacer()
+            buttonView
+        }
+    }
+    private var buttonView: some View {
+        HStack {
+            
+        }
+    }
+    private var resetButton: some View {
+        Button {
+           // reset()
+        } label: {
+            HStack(spacing: 0) {
+                Image(systemName: "arrow.clockwise")
+            }
+        }
+    }
 }
 
 #Preview {
