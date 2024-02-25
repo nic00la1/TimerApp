@@ -25,6 +25,7 @@ class TimerViewModel : NSObject, ObservableObject {
     init(seconds: TimeInterval, goalTime: Double) {
         self.seconds = seconds
         self.goalTime = goalTime
+        self.progress = seconds / Double(goalTime)
     }
     
     // MARK: - Timer Methods
