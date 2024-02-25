@@ -56,4 +56,17 @@ class TimerViewModel : NSObject, ObservableObject {
         seconds = 0
         progress = 0
     }
+    
+    // MARK: - Public Methods
+    func viewDidLoad() {
+        self.progress = seconds / Double(goalTime)
+        self.displayTime = calculateDisplayTime()
+    }
+    
+    // MARK: - Private Methods
+    private func calculateDisplayTime() -> String {
+        let minutes = Int(seconds) / 60
+        let seconds = Int(seconds) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
 }
