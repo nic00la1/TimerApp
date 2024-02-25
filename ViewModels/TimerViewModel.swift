@@ -39,4 +39,21 @@ class TimerViewModel : NSObject, ObservableObject {
             makeSoundAndVibration()
         }
     }
+    
+    func startSession() {
+        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.fireTimer), userInfo: nil, repeats: true)
+    }
+    
+    func stopSession() {
+        timer.invalidate()
+    }
+    
+    func pauseSession() {
+        timer.invalidate()
+    }
+    
+    func reset() {
+        seconds = 0
+        progress = 0
+    }
 }
