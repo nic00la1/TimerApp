@@ -69,4 +69,10 @@ class TimerViewModel : NSObject, ObservableObject {
         let seconds = Int(seconds) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
+    
+    private func makeSoundAndVibration() {
+        AudioServicesPlayAlertSoundWithCompletion(soundID, nil)
+        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate), {})
+        
+    }
 }
