@@ -16,5 +16,9 @@ class TimerViewModel : NSObject, ObservableObject {
     @Published var displayTime: String = ""
     @Published var goalTime: Double = 0
     
-    //
+    // MARK: - Private properties
+    private var timer: Timer = Timer()
+    private var soundID: SystemSoundID = 1407 // id for playing the sound
+    private var feedback =  UIImpactFeedbackGenerator(style: .soft)
+    
 }
