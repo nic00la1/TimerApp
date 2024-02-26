@@ -79,7 +79,10 @@ struct ContentView: View {
     }
     private var startPauseButton: some View {
         Button {
-            
+            if timerViewModel.progress < 1 {
+                isPaused.toggle()
+                isPaused ? timerViewModel.pauseSession() : timerViewModel.startSession()  
+            }
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: isPaused ? "play.fill" : "pause.fill")
