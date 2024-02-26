@@ -16,7 +16,7 @@ struct ContentView: View {
     
     // MARK: - Initializer
     init(seconds: TimeInterval = 0) {
-        timerViewModel = TimerViewModel(goalTime: 5) // Default goal time is 20 seconds
+        timerViewModel = TimerViewModel(goalTime: 20) // Default goal time is 20 seconds
     }
     
     // MARK: - View Body
@@ -61,10 +61,13 @@ struct ContentView: View {
                 .keyboardType(.numberPad)
                 .foregroundColor(.black)
                 .onChange(of: userInputSeconds) { newValue in
-                    if let seconds = Double(newValue) {
-                        timerViewModel.goalTime = seconds
+                        if let seconds = Double(newValue), seconds > 0 {
+                            timerViewModel.goalTime = seconds
+                        } else {
+                            // Reset to a default value
+                            userInputSeconds = ""
+                        }
                     }
-                }
         }
     }
     private var buttonView: some View {

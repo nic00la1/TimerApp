@@ -24,7 +24,7 @@ class TimerViewModel : NSObject, ObservableObject {
     // MARK: - Initializer
     init(seconds: TimeInterval = 0, goalTime: Double) {
         self.seconds = seconds
-        self.goalTime = goalTime
+        self.goalTime = max(1, goalTime) // Ensure goalTime is not zero or negative
         self.progress = seconds / Double(goalTime)
     }
     
