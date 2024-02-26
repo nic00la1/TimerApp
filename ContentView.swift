@@ -57,10 +57,12 @@ struct ContentView: View {
             resetButton
             startPauseButton
         }
+        .padding(.bottom, 40)
+        .padding(.horizontal, 20)
     }
     private var resetButton: some View {
         Button {
-           // reset()
+            reset()
         } label: {
             HStack(spacing: 0) {
                 Image(systemName: "arrow.clockwise")
@@ -90,6 +92,19 @@ struct ContentView: View {
         }
         .background(Color(red: 236/255, green: 230/255, blue: 0/255))
         .cornerRadius(15)
+    }
+    // MARK: - Private Methods
+    private func reset() {
+        withAnimation(.easeInOut(duration: 0.4)) {
+            rotation += 360
+        }
+        if timerViewModel.progress >= 1 {
+            timerViewModel.reset()
+            timerViewModel.stopSession()
+        } else {
+            timerViewModel.reset()
+            timerViewModel.displayTime = "00:00"
+        }
     }
 }
 
