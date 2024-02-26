@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     // MARK: - Properties
     @ObservedObject var timerViewModel : TimerViewModel
-    @State var isPause = false
+    @State var isPaused = false
     @State private var rotation = 0
     
     // MARK: - Initializer
@@ -55,6 +55,7 @@ struct ContentView: View {
     private var buttonView: some View {
         HStack {
             resetButton
+            startPauseButton
         }
     }
     private var resetButton: some View {
@@ -65,6 +66,22 @@ struct ContentView: View {
                 Image(systemName: "arrow.clockwise")
                     .rotationEffect(.degrees(Double(rotation)))
                 Text("Reset")
+            }
+            .padding()
+            .tint(.black)
+            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+            .font(.system(size: 18, weight: .bold))
+        }
+        .background(Color(red: 236/255, green: 230/255, blue: 0/255))
+        .cornerRadius(15)
+    }
+    private var startPauseButton: some View {
+        Button {
+            
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: isPaused ? "play.fill" : "pause.fill")
+                Text(isPaused ? "Start" : "Pause")
             }
             .padding()
             .tint(.black)
