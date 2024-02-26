@@ -22,7 +22,7 @@ class TimerViewModel : NSObject, ObservableObject {
     private var feedback =  UIImpactFeedbackGenerator(style: .soft)
     
     // MARK: - Initializer
-    init(seconds: TimeInterval, goalTime: Double) {
+    init(seconds: TimeInterval = 0, goalTime: Double) {
         self.seconds = seconds
         self.goalTime = goalTime
         self.progress = seconds / Double(goalTime)

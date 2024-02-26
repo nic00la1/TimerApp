@@ -12,10 +12,11 @@ struct ContentView: View {
     @ObservedObject var timerViewModel : TimerViewModel
     @State var isPaused = false
     @State private var rotation = 0
+    @State private var userInputSeconds = ""
     
     // MARK: - Initializer
     init(seconds: TimeInterval = 0) {
-        timerViewModel = TimerViewModel(seconds: seconds, goalTime: 20)
+        timerViewModel = TimerViewModel(goalTime: 5) // Default goal time is 20 seconds
     }
     
     // MARK: - View Body
@@ -25,6 +26,10 @@ struct ContentView: View {
             ProgressBarView(progress: $timerViewModel.seconds, goal: $timerViewModel.goalTime)
             centerTitle
             bottomButtons
+                .onAppear {
+                    timerViewModel.startSession()
+                    timerViewModel.viewDidLoad()
+                }
         }
     }
     
@@ -50,6 +55,16 @@ struct ContentView: View {
                 .foregroundStyle(Color(red: 180/255, green: 187/255, blue: 62/255))
             Spacer()
             buttonView
+            TextField("Enter seconds", text: $userInputSeconds)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .keyboardType(.numberPad)
+                .foregroundColor(.black)
+                .onChange(of: userInputSeconds) { newValue in
+                    if let seconds = Double(newValue) {
+                        timerViewModel.goalTime = seconds
+                    }
+                }
         }
     }
     private var buttonView: some View {
@@ -81,7 +96,7 @@ struct ContentView: View {
         Button {
             if timerViewModel.progress < 1 {
                 isPaused.toggle()
-                isPaused ? timerViewModel.pauseSession() : timerViewModel.startSession()  
+                isPaused ? timerViewModel.pauseSession() : timerViewModel.startSession()
             }
         } label: {
             HStack(spacing: 8) {
