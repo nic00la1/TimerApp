@@ -54,7 +54,7 @@ struct ContentView: View {
     }
     private var buttonView: some View {
         HStack {
-            
+            resetButton
         }
     }
     private var resetButton: some View {
@@ -63,11 +63,20 @@ struct ContentView: View {
         } label: {
             HStack(spacing: 0) {
                 Image(systemName: "arrow.clockwise")
+                    .rotationEffect(.degrees(Double(rotation)))
+                Text("Reset")
             }
+            .padding()
+            .tint(.black)
+            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+            .font(.system(size: 18, weight: .bold))
         }
+        .background(Color(red: 236/255, green: 230/255, blue: 0/255))
+        .cornerRadius(15)
     }
 }
 
 #Preview {
     ContentView()
 }
+
