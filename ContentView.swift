@@ -46,6 +46,7 @@ struct ContentView: View {
             Text("\(timerViewModel.goalTime.asString(style: .short))")
                 .foregroundStyle(.white)
                 .opacity(0.6)
+            userInputView
         }
     }
     private var bottomButtons: some View {
@@ -55,21 +56,29 @@ struct ContentView: View {
                 .foregroundStyle(Color(red: 180/255, green: 187/255, blue: 62/255))
             Spacer()
             buttonView
-            TextField("Enter seconds", text: $userInputSeconds)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                .keyboardType(.numberPad)
-                .foregroundColor(.black)
-                .onChange(of: userInputSeconds) { newValue in
-                        if let seconds = Double(newValue), seconds > 0 {
-                            timerViewModel.goalTime = seconds
-                        } else {
-                            // Reset to a default value
-                            userInputSeconds = ""
-                        }
-                    }
+            
         }
     }
+    
+    private var userInputView: some View {
+        TextField("Enter seconds", text: $userInputSeconds)
+            .padding()
+            .background(Color.white)
+            .cornerRadius(8)
+            .shadow(color: Color.yellow, radius: 14, x: 0, y: 5)
+            .keyboardType(.numberPad)
+            .foregroundColor(.black)
+            .frame(width: 150)
+            .onChange(of: userInputSeconds) { newValue in
+                if let seconds = Double(newValue), seconds > 0 {
+                    timerViewModel.goalTime = seconds
+                } else {
+                    // Reset to a default value
+                    userInputSeconds = ""
+                }
+            }
+    }
+    
     private var buttonView: some View {
         HStack {
             resetButton
